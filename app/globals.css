@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.brands-swiper {
+  padding: 20px 0px;
+}
+
+.brands-swiper .image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
