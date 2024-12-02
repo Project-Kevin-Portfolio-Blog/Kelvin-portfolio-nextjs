@@ -11,7 +11,7 @@ export default function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/posts', {
+      const res = await fetch('/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -20,9 +20,9 @@ export default function AdminLogin() {
       const data = await res.json();
       
       if (data.success) {
-        router.push('/admin');
+        router.replace('/admin');
       } else {
-        setError('Invalid credentials');
+        setError(data.message || 'Invalid credentials');
       }
     } catch (err) {
       setError('An error occurred');
@@ -30,7 +30,7 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#081825]">
       <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
         <h2 className="text-center text-3xl font-bold">Admin Login</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}

@@ -1,41 +1,20 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { connectToDatabase } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 import { Post } from './model';
 
 export async function POST(request: Request) {
   try {
-    const { username, password } = await request.json();
-
-    if (
-      username === process.env.ADMIN_USERNAME &&
-      password === process.env.ADMIN_PASSWORD
-    ) {
-      // Create session in MongoDB
-      const { db } = await connectToDatabase();
-      const session = await db.collection('sessions').insertOne({
-        username,
-        createdAt: new Date(),
-        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
-      });
-
-      // Set cookie with session ID
-      const cookieStore = await cookies();
-      cookieStore.set('isAdminLoggedIn', 'true', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 // 24 hours
-      });
-
-      return NextResponse.json({ success: true });
-    }
-
-    return NextResponse.json(
-      { success: false, message: 'Invalid credentials' },
-      { status: 401 }
-    );
+    // This POST endpoint should now handle creating new posts
+    const postData = await request.json();
+    const { db } = await connectToDatabase();
+    
+    const result = await db.collection('posts').insertOne(postData);
+    
+    return NextResponse.json({ 
+      success: true, 
+      post: result 
+    });
   } catch (error) {
     return NextResponse.json(
       { success: false, message: 'Server error' },

@@ -9,7 +9,8 @@ import { DarkThemeToggle } from "flowbite-react";
 import Image from 'next/image';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);  // More specific name
+  
 
   const menuItems = [
     { title: 'Home', path: '/' },
@@ -47,23 +48,40 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed w-full bg-white text-[#081825] shadow-md z-50">
+    <nav className="fixed w-full bg-slate-100 text-[#081825] dark:bg-slate-200 shadow-2xl dark:text-gray-100  z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-28 lg:h-28">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex-shrink-0"
+            className="shrink-0 "
           >
             <Link href="/">
-              <img 
-                src='/assests/portfolio/mainlogo2.png' className='lg:w-72 w-52 h-16'
-                alt='Main Logo'
-          
-                
+              <Image 
+                src='/assests/portfolio/mainlogo2.png' 
+                className='block h-16 w-52 lg:w-72' 
+                alt='Main Logo' 
+                width={288} // Adjust width as needed
+                height={64} // Adjust height as needed
               />
             </Link>
           </motion.div>
+
+       {/*    <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="shrink-0 hidden"
+          >
+            <Link href="/" className='flex items-center gap-3'>
+              <Image 
+                src='/assests/portfolio/footer.png' 
+                className='lg:w-32 w-52 h-16 hidden' 
+                alt='Footer Logo' 
+                width={128} // Adjust width as needed
+                height={64} // Adjust height as needed
+              />
+              <h1 className="font-bold text-2xl ">Ezemmuo <br/> Blockchain</h1>
+            </Link>
+          </motion.div> */}
 
           {/* Desktop Menu */}
           <div className="hidden md:block">
@@ -103,29 +121,28 @@ const Navbar = () => {
               ))}
                      <DarkThemeToggle className='ml-6 !outline-none !border-none !ring-0 !ring-offset-0 !shadow-none hover:!bg-transparent active:!bg-transparent focus:!bg-transparent dark:!bg-transparent dark:hover:!bg-transparent hover:!border-none focus:!border-none active:!border-none dark:!border-none dark:hover:!border-none dark:!outline-none dark:focus:!ring-0 dark:active:!outline-none' />
                      </div>
-          </div>
-
-          {/* Mobile menu button */}
+                     </div>
+         {/* Mobile menu button */}
           <div className="md:hidden">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none"
+              onClick={() => setIsNavMenuOpen(!isNavMenuOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-blue-600 focus:outline-none"
             >
-              {isOpen ? <HiX size={24} /> : <HiMenu size={38} />}
+              {isNavMenuOpen ? <HiX size={24} /> : <HiMenu size={38} />}
             </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <motion.div
+       {/* Mobile Menu */}
+       <motion.div
         initial="closed"
-        animate={isOpen ? "open" : "closed"}
+        animate={isNavMenuOpen ? "open" : "closed"}
         variants={mobileMenuVariants}
         className="md:hidden"
       >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-[#081825] bg-white">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-[#081825] bg-slate-100  ">
           {menuItems.map((item) => (
             <motion.div
               key={item.title}
@@ -139,7 +156,7 @@ const Navbar = () => {
                   ? 'bg-[#0145FE] text-white hover:bg-[rgba(1,69,254,0.8)] hover:mt-4 w-fit group'
                   : 'text-gray-700 hover:text-blue-600 hover:border-blue-600 hover:shadow-2xl hover:border-b-4 hover:my-4 w-fit '
                 } transition-all duration-300`}
-                onClick={() => setIsOpen(false)}
+                onClick={() => setIsNavMenuOpen(false)}
               >
                 {item.title}
                 {item.title === "Let's Talk" && (
@@ -152,6 +169,7 @@ const Navbar = () => {
         <DarkThemeToggle className=' mb-4 ml-6 !outline-none !border-none !ring-0 !ring-offset-0 !shadow-none hover:!bg-transparent active:!bg-transparent focus:!bg-transparent dark:!bg-transparent dark:hover:!bg-transparent hover:!border-none focus:!border-none active:!border-none dark:!border-none dark:hover:!border-none dark:!outline-none dark:focus:!ring-0 dark:active:!outline-none' />
        
       </motion.div>
+      
       
     </nav>
   );

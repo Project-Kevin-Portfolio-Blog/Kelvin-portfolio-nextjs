@@ -1,13 +1,13 @@
 import { BsTwitter, BsLinkedin, BsFacebook, BsInstagram, BsTelegram } from "react-icons/bs";
-export default function NewsLetter() {
+import Footer from "@/components/footer/page";
+export default function ContactPage() {
     return (
-       <div>
- <div  className="bg-[#00004A] dark:bg-[#081825] text-gray-200 py-10 ">
+       <div className="pt-12 dark:bg-[#081825]">
+ <div  className="bg-[#00004A] dark:bg-[#081825] text-gray-200 py-16 ">
 <div data-aos="fade-right">
 <h1 className="lg:text-5xl text-2xl font-bold text-center mb-3 md:mb-8 text-white mx-6">
-                SUBSCRIBE TO MY NEWSLETTER
+                Contact Me
             </h1>
-            <p className="text-sm text-center mx-6 md:w-4/5 md:mx-auto">Want to stay up to date with the latest stories, events and articles on my Blog? Subscribe to my newsletter below! Be sure to use your best e-mail address</p>
 <form action="https://formspree.io/f/xqakyjqo" method="POST">
 <div className="grid gap-6 mb-6 grid-cols-1 md:grid-cols-2 w-5/6 mx-auto pt-8">
                 <div>
@@ -30,18 +30,27 @@ export default function NewsLetter() {
                         required 
                     />
                 </div>
+                <textarea name="text" id=""
+ className="w-full p-2.5 rounded-lg bg-transparent border border-white/30 text-white outline-none focus:border-white/40"
+ placeholder="Enter your message" 
+ required 
+></textarea>
             </div>
+            
+
+
+            
 <div className="flex justify-center items-center">
-    <button type="submit" className="group mt-4 uppercase bg-[#0145FE] dark:bg-[#0145FE] text-gray-100 dark:text-gray-100 px-4 py-2 rounded-md hover:bg-blue-700 dark:hover:bg-blue-700 flex items-center gap-4 transition-all duration-300 ease-in-out  w-2/5 justify-center">
-        Subscribe</button>
+    <button type="submit" className="group mt-4 uppercase bg-[#0145FE] dark:bg-[#0145FE] text-gray-100 dark:text-gray-100 px-4 py-2 rounded-md hover:bg-blue-700 dark:hover:bg-blue-700 flex items-center gap-4 transition-all duration-300 ease-in-out w-2/5 md:w-1/5 justify-center">
+        Submit Now</button>
 </div>
 
 
 </form>
         </div>
         </div>
-        <div className="lg:pt-8 pt-8 mt-5 shadow-2xl bg-slate-100 dark:bg-[#081825]">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:w-4/5 mx-auto">
+        <div className="lg:pt-8 pt-8  dark:text-slate-100  shadow-2xl bg-slate-100 dark:bg-[#081825] ">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:w-4/5 mx-auto ">
                 <div className="w-full md:w-2/5 max-w-md">
                     <img src="/assests/portfolio/kev4.png" alt="" className="w-4/5 mx-auto"/>
                 </div>
@@ -63,6 +72,7 @@ export default function NewsLetter() {
             </div>
         </div>
 
+<Footer />
 
 </div>
 
