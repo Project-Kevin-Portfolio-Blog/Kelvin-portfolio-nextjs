@@ -107,6 +107,15 @@ export default function SideBar() {
                 </NavLink>
               </li>
               <li>
+                <NavLink
+                  href="/pages/gallery"
+                  className="flex cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
+                >
+                  <FaList className="mr-2 inline-block" />
+                  Gallery Photos
+                </NavLink>
+              </li>
+              <li>
                 <button
                   className="mt-auto flex w-full cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
                   onClick={handleLogout}
