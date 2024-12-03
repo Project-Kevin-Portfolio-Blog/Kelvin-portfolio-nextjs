@@ -2,7 +2,7 @@
 import Link from "next/link";
 export default function AdminDashboard() {
   return (
-    <div className=" mx-auto flex w-3/4 md:w-2/4 flex-col items-center justify-center p-4 pt-48 text-left dark:text-slate-100 text-center dark:bg-[#081825]">
+    <div className=" mx-auto flex w-3/4 md:w-2/4 flex-col items-center justify-center px-4 pt-48 dark:text-slate-100 text-center dark:bg-[#081825]">
      
       
       <h1 className="mb-4 text-2xl font-bold">

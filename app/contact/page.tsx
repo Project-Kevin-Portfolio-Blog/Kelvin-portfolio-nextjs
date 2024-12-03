@@ -56,7 +56,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="md:w-1/2 mx-0 w-11/12 ">
-                    <h4 data-aos="fade-in" className="font-bold text-2xl lg:text-3xl leading-relaxed">Let's Talk</h4>
+                    <h4 data-aos="fade-in" className="font-bold text-2xl lg:text-3xl leading-relaxed">Let&apos;s Talk</h4>
                     <h6 data-aos="fade-out" className="font-bold text-sm lg:text-xl pt-4">
                         I am Open for Collaborations. Connect with me on Socials below and Send me a mail at;
                     </h6>
