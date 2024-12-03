@@ -7,7 +7,7 @@ export default function CreateVideo() {
     title: "",
     description: "",
     videoUrl: "",
-    image: null as File | null,
+    video: null as File | null,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +24,16 @@ export default function CreateVideo() {
         <h1 className="mb-6 text-2xl font-bold">Create New Video</h1>
         <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
           <div>
-            <label className="mb-2 block text-sm font-bold">Title</label>
+            
+            <input
+              type="file"
+              accept="video/*"
+              onChange={(e) =>
+                setFormData({ ...formData, video: e.target.files?.[0] || null })
+              }
+              className="w-full rounded mb-3 p-2 dark:bg-[#081825]"
+            />
+
             <input
             placeholder='Tittle'
               type="text"
@@ -37,19 +46,19 @@ export default function CreateVideo() {
             />
           </div>
           <div>
-            <label className="mb-2 block text-sm font-bold">Description</label>
+            
             <textarea
             placeholder='Video Content'
               value={formData.description}
               onChange={(e) =>
                 setFormData({ ...formData, description: e.target.value })
               }
-              className="h-32 w-full rounded border p-2 dark:bg-[#081825]"
+              className="h-32 w-full rounded border  p-2 dark:bg-[#081825]"
               required
             />
           </div>
           <div className='pb-10'>
-            <label className="mb-2 block text-sm font-bold">Video URL</label>
+            
             <input
             placeholder='Video Url (Optional)'
               type="url"
@@ -58,7 +67,7 @@ export default function CreateVideo() {
                 setFormData({ ...formData, videoUrl: e.target.value })
               }
               className="w-full rounded border p-2 dark:bg-[#081825]"
-              required
+              
             />
           </div>
           

@@ -48,6 +48,7 @@ export default function CreatePost() {
    <input
               type="file"
               accept="image/*"
+              required
               onChange={(e) =>
                 setFormData({ ...formData, image: e.target.files?.[0] || null })
               }
@@ -55,6 +56,7 @@ export default function CreatePost() {
             />
           <select
               value={formData.category}
+              required
               onChange={(e) =>
                 setFormData({ ...formData, category: e.target.value })
               }
@@ -72,6 +74,7 @@ export default function CreatePost() {
  <input
               type="text"
               placeholder="Title"
+              required
               value={formData.title}
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
@@ -81,6 +84,7 @@ export default function CreatePost() {
 
             <textarea
               placeholder="Content"
+              required
               value={formData.content}
               onChange={(e) =>
                 setFormData({ ...formData, content: e.target.value })
