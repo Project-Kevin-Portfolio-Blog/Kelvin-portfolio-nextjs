@@ -9,7 +9,7 @@ export default function CreatePost() {
     title: "",
     content: "",
     category: "education",
-    video: null as File | null,
+    image: null as File | null,
     externalUrl: "",
   });
 
@@ -47,9 +47,10 @@ export default function CreatePost() {
           <form onSubmit={handleSubmit} className="space-y-6">
    <input
               type="file"
-              accept="video/*"
+              accept="image/*"
+              required
               onChange={(e) =>
-                setFormData({ ...formData, video: e.target.files?.[0] || null })
+                setFormData({ ...formData, image: e.target.files?.[0] || null })
               }
               className="w-full rounded  p-2 dark:bg-[#081825]"
             />
@@ -57,7 +58,7 @@ export default function CreatePost() {
             <div className="pb-6">
             <input
               type="text"
-              placeholder="Title"
+              placeholder="Title (Optional)"
               value={formData.title}
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })

@@ -10,7 +10,9 @@ export function middleware(request: NextRequest) {
     if (!isLoggedIn && !isLoginPage) {
       return NextResponse.redirect(new URL('/admin', request.url));
     }
-   
+    if (isLoggedIn && !isValidUser(request)) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
   }
 
   return NextResponse.next();
@@ -19,3 +21,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: '/admin/:path*',
 }; 
+
+function isValidUser(request: NextRequest): boolean {
+  return true;
+}

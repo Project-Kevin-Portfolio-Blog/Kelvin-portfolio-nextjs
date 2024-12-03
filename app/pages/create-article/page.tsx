@@ -65,6 +65,7 @@ export default function CreatePost() {
             <textarea
               placeholder="Content"
               value={formData.content}
+              required
               onChange={(e) =>
                 setFormData({ ...formData, content: e.target.value })
               }
@@ -73,6 +74,7 @@ export default function CreatePost() {
 
             <select
               value={formData.category}
+              required
               onChange={(e) =>
                 setFormData({ ...formData, category: e.target.value })
               }
@@ -90,9 +92,20 @@ export default function CreatePost() {
             <input
               type="url"
               placeholder="Image URL"
+              required
               value={formData.imageUrl}
               onChange={(e) =>
-                setFormData({ ...formData, imageUrl: e.target.value })
+                setFormData({ ...formData, title: e.target.value })
+              }
+              className="w-full rounded border p-2 capitalize dark:bg-[#081825]"
+            />
+
+            <textarea
+              placeholder="Content"
+              required
+              value={formData.content}
+              onChange={(e) =>
+                setFormData({ ...formData, content: e.target.value })
               }
               className="w-full rounded border p-2 dark:bg-[#081825]"
             />
