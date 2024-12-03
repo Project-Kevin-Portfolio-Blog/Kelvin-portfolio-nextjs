@@ -32,7 +32,8 @@ export default function CreatePost() {
       if (res.ok) {
         setStatus("success");
         setMessage("Post created successfully!");
-        setTimeout(() => router.push("/admin/posts"), 2000); // Redirect after 2 seconds
+        // setTimeout(() => router.push("/admin/posts"), 2000);
+        // Redirect after 2 seconds
       } else {
         const errorData = await res.json();
         setStatus("error");
