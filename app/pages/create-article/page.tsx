@@ -32,8 +32,8 @@ export default function CreatePost() {
       if (res.ok) {
         setStatus("success");
         setMessage("Post created successfully!");
-        // setTimeout(() => router.push("/admin/posts"), 2000);
-        // Redirect after 2 seconds
+        setTimeout(() => router.push("/pages/posts"), 5000);
+        // Redirect after 5 seconds
       } else {
         const errorData = await res.json();
         setStatus("error");
@@ -95,21 +95,10 @@ export default function CreatePost() {
               required
               value={formData.imageUrl}
               onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
+                setFormData({ ...formData, imageUrl: e.target.value })
               }
               className="w-full rounded border p-2 capitalize dark:bg-[#081825]"
             />
-
-            <textarea
-              placeholder="Content"
-              required
-              value={formData.content}
-              onChange={(e) =>
-                setFormData({ ...formData, content: e.target.value })
-              }
-              className="w-full rounded border p-2 dark:bg-[#081825]"
-            />
-
             <input
               type="url"
               placeholder="External URL (Optional)"
