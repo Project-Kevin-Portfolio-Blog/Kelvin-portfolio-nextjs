@@ -1,24 +1,27 @@
-import { NextResponse } from 'next/server';
-import { connectToDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
-import { Post } from './model';
+import { NextResponse } from "next/server";
+import { connectToDatabase } from "@/lib/mongodb";
+import { Post } from "./model";
 
 export async function POST(request: Request) {
   try {
-    // This POST endpoint should now handle creating new posts
+    // Ensure database connection
+    await connectToDatabase();
+    // Parse the request body for new post data
     const postData = await request.json();
-    const { db } = await connectToDatabase();
-    
-    const result = await db.collection('posts').insertOne(postData);
-    
-    return NextResponse.json({ 
-      success: true, 
-      post: result 
+    console.log("received post data", postData);
+
+    // Create a new post using the Mongoose model
+    const newPost = await Post.create(postData);
+
+    return NextResponse.json({
+      success: true,
+      post: newPost,
     });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { success: false, message: 'Server error' },
-      { status: 500 }
+      { success: false, message: "Server error" },
+      { status: 500 },
     );
   }
 }
@@ -26,29 +29,33 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const type = searchParams.get('type');
-    const page = parseInt(searchParams.get('page') || '1', 10);
-    const category = searchParams.get('category');
+    const type = searchParams.get("type");
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const category = searchParams.get("category");
 
-    const { db } = await connectToDatabase();
+    // Ensure database connection
+    await connectToDatabase();
+
+    // Build query
     const query: any = {};
     if (type) query.type = type;
     if (category) query.category = category;
 
-    const posts = await db.collection('posts')
-      .find(query)
-      .skip((page - 1) * 10)
-      .limit(10)
-      .toArray();
+    // Pagination options
+    const limit = 10;
+    const skip = (page - 1) * limit;
 
-    const totalPosts = await db.collection('posts').countDocuments(query);
-    const totalPages = Math.ceil(totalPosts / 10);
+    // Fetch posts and total count using Mongoose
+    const posts = await Post.find(query).skip(skip).limit(limit).exec();
+    const totalPosts = await Post.countDocuments(query).exec();
+    const totalPages = Math.ceil(totalPosts / limit);
 
     return NextResponse.json({ posts, totalPages });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
-      { success: false, message: 'Server error' },
-      { status: 500 }
+      { success: false, message: "Server error" },
+      { status: 500 },
     );
   }
-} 
+}

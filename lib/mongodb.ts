@@ -1,33 +1,24 @@
-import { MongoClient } from 'mongodb';
+import mongoose from "mongoose";
 
 if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your Mongo URI to .env.local');
+  throw new Error("Please add your MongoDB URI to .env.local");
 }
 
-const uri = process.env.MONGODB_URI;
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+const MONGODB_URI = process.env.MONGODB_URI;
 
-if (process.env.NODE_ENV === 'development') {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  let globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
-
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri);
-    globalWithMongo._mongoClientPromise = client.connect();
-  }
-  clientPromise = globalWithMongo._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri);
-  clientPromise = client.connect();
-}
+let isConnected = false; // Track the connection state
 
 export async function connectToDatabase() {
-  const client = await clientPromise;
-  const db = client.db();
-  return { client, db };
-} 
+  if (isConnected) {
+    return; // Use the existing connection
+  }
+
+  try {
+    await mongoose.connect(MONGODB_URI, {});
+    isConnected = true;
+    console.log("Connected to MongoDB via Mongoose");
+  } catch (error) {
+    console.error("Error connecting to MongoDB via Mongoose:", error);
+    throw error;
+  }
+}
