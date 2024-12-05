@@ -1,7 +1,7 @@
 import Link from "next/link"
 export default function Footer() {
     return(
-        <div className="bg-[#00004A] dark:bg-[#081825] text-gray-200 pt-14 pb-5">
+        <div className="bg-[#00004A] dark:bg-[#081825] footer text-white pt-14 pb-5">
 <div className="flex md:w-10/12 w-10/12 mx-auto  justify-between md:items-center md:flex-row flex-col">
 <div className="flex items-center gap-3  mb-5 md:mb-0">
     <img src="/assests/portfolio/footer.png" alt="" className="md:w-2/5 w-20 h-16" />

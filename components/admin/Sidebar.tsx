@@ -38,9 +38,9 @@ export default function SideBar() {
 
   return (
     <>
-      <div className="relative z-50 min-h-screen ">
+      <div className=" min-h-screen z-50">
         <button
-          className="fixed left-6 z-20  mt-16 rounded text-2xl  text-gray-950 md:hidden"
+          className="fixed left-6   mt-16 rounded text-2xl  text-gray-950 md:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
           <FaBars className="text-gray-500 " />
@@ -48,7 +48,7 @@ export default function SideBar() {
 
         <div
           className={`
-          fixed left-0 top-0 z-10 mt-28 flex h-full  w-64
+          fixed left-0 top-0  mt-28 flex h-full  w-64
           flex-col bg-gray-800 pt-16 text-white 
           transition-transform duration-300 ease-in-out md:mt-28
           ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}

@@ -46,9 +46,9 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="z-50 flex h-screen">
+    <div className=" flex  h-screen ">
       <SideBar />
-      <main className="w-full overflow-y-auto bg-slate-100 px-14 py-24 text-[#081825] dark:bg-[#081825] dark:text-slate-100 md:px-8 md:py-16">
+      <main className="w-full overflow-y-auto  bg-slate-100 px-14 py-24 text-[#081825] dark:bg-[#081825] dark:text-slate-100 md:px-8 md:py-16">
         <div className="mx-auto max-w-2xl">
           <h1 className="mb-6 text-2xl font-bold">Create New Article</h1>
           <form onSubmit={handleSubmit} className="space-y-6">

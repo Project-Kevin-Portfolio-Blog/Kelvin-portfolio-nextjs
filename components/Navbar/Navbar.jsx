@@ -17,7 +17,7 @@ const Navbar = () => {
     { title: 'About', path: '/about' },
     { title: 'Community', path: '/community' },
     { title: 'Blog', path: '/blog' },
-    { title: "Let's Talk", path: '/contact' },
+    { title: "Lets Have A Chat", path: '/contact' },
   ];
 
   const mobileMenuVariants = {
@@ -48,7 +48,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed w-full bg-slate-100 text-[#081825] dark:bg-slate-200 shadow-2xl dark:text-gray-100  z-10">
+    <nav className="fixed w-full z-10  bg-white  dark:bg-slate-200 shadow-2xl dark:text-gray-100  ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-28 lg:h-28">
           {/* Logo */}
@@ -59,7 +59,7 @@ const Navbar = () => {
             <Link href="/">
               <Image 
                 src='/assests/portfolio/mainlogo2.png' 
-                className='block h-16 w-52 lg:w-72' 
+                className='block h-12 w-32 lg:w-52' 
                 alt='Main Logo' 
                 width={288} // Adjust width as needed
                 height={64} // Adjust height as needed
@@ -105,14 +105,14 @@ const Navbar = () => {
                 >
                   <Link
                     href={item.path}
-                    className={`px-3 py-2 rounded-md text-sm font-medium uppercase flex items-center gap-2
-                    ${item.title === "Let's Talk" 
-                      ? 'bg-[#0145FE] text-white hover:bg-blue-700 group'
-                      : 'text-gray-700 hover:text-blue-600 hover:shadow-2xl hover:border-blue-600 hover:border-b-4'
+                    className={`px-4 py-4 rounded-2xl   uppercase flex items-center gap-2
+                    ${item.title === "Lets Have A Chat" 
+                      ? 'bg-[#0145FE] text-white hover:bg-blue-700  capitalize group'
+                      : 'text-black '
                     } transition-all duration-300`}
                   >
                     {item.title}
-                    {item.title === "Let's Talk" && (
+                    {item.title === "Lets Have A Chat" && (
                       <BsArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                     )}
                   </Link>
@@ -142,7 +142,7 @@ const Navbar = () => {
         variants={mobileMenuVariants}
         className="md:hidden"
       >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-[#081825] bg-slate-100  ">
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white  ">
           {menuItems.map((item) => (
             <motion.div
               key={item.title}
@@ -151,15 +151,15 @@ const Navbar = () => {
             >
               <Link
                 href={item.path}
-                className={` px-3 py-2 rounded-md uppercase text-base font-medium flex items-center gap-2
-                ${item.title === "Let's Talk"
-                  ? 'bg-[#0145FE] text-white hover:bg-[rgba(1,69,254,0.8)] hover:mt-4 w-fit group'
-                  : 'text-gray-700 hover:text-blue-600 hover:border-blue-600 hover:shadow-2xl hover:border-b-4 hover:my-4 w-fit '
+                className={` px-4 py-3 rounded-md uppercase flex items-center gap-2
+                ${item.title === "Lets Have A Chat"
+                  ? 'bg-[#0145FE] text-white hover:bg-[rgba(1,69,254,0.8)] capitalize w-fit group'
+                  : 'text-black w-fit '
                 } transition-all duration-300`}
                 onClick={() => setIsNavMenuOpen(false)}
               >
                 {item.title}
-                {item.title === "Let's Talk" && (
+                {item.title === "Lets Have A Chat" && (
                   <BsArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 )}
               </Link>

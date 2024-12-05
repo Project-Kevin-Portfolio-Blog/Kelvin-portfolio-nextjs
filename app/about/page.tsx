@@ -6,10 +6,11 @@ import GalleryPage from "@/components/gallery/page"
 import Footer from "@/components/footer/page"
 export default function AboutPage(){
 return(
-<div className="pt-24 min-h-screen  bg-slate-100 dark:bg-[#081825] text-[#081825] dark:text-slate-100">
-    <h1 className="text-center text-3xl font-bold">About ME</h1>
-    <div data-aos="fade-right" className="text-cente text-gray-600 dark:text-gray-300 text-sm py-4 flex flex-col gap-4 w-10/12 md:w-3/4 mx-auto leading-loose">
-<p>Popularly known as “Ezemmuo Blockchain”, Okoye Kevin Chibuoyim is a seasoned entrepreneur within the the Tech landscape - A Strategic and results-oriented Web3 Community Growth Lead, Business Developer, DevRel and Tech Content Creator with a proven track record of cultivating vibrant communities and a fervent advocate for the transformative power of technology. Possessing a deep passion for technology since getting into the Blockchain/Crypto Ecosystem in 2018, he has left an indelible impact on the lives of many.</p>
+<div className=" min-h-screen pt-24  dark:bg-[#081825] dark:text-slate-100">
+   <div className="about2"> <h1 className="text-center text-5xl uppercase">About ME</h1>
+   </div>
+    <div data-aos="fade-right" className=" about-text2 mx-auto  flex w-10/12 flex-col gap-4 py-4  dark:text-gray-300 md:w-3/4 ">
+<p className="">Popularly known as “Ezemmuo Blockchain”, Okoye Kevin Chibuoyim is a seasoned entrepreneur within the the Tech landscape - A Strategic and results-oriented Web3 Community Growth Lead, Business Developer, DevRel and Tech Content Creator with a proven track record of cultivating vibrant communities and a fervent advocate for the transformative power of technology. Possessing a deep passion for technology since getting into the Blockchain/Crypto Ecosystem in 2018, he has left an indelible impact on the lives of many.</p>
 <p>In addition to his role as an entrepreneur and educator, he is actively engaged as a Public speaker and Tech influencer. He regularly shares his insights and expertise with thousands of followers on various social media platforms, inspiring them to embrace the power of technology and to continually strive for excellence in their respective fields. He has extensive experience speaking at Industry events and conferences, and has also organized and anchored major IRL Blockchain Conferences that pulled 3000+ attendees and hundreds of online participants.
 </p>
 <p>He Founded GIDA - Ginakev Digital Academy; A Cryptocurrency Education academy that focuses on proper Cryptocurrency education, awareness and enlightenment. He is equally the Cofounder of BlockchainUNN - Blockchain University Of Nigeria; a blockchain campus club at the University of Nigeria Nsukka aimed at promoting blockchain adoption and education within the university environment, and actively Training People to become Web3/Blockchain Devs.
@@ -44,14 +45,15 @@ return(
 <CommunityPage />
 <Brands />
 
-<h1 className="text-center text-3xl font-bold">My Blog</h1>
-    <div ata-aos="fade-right"  className="text-center mb-8 text-gray-600 dark:text-gray-300 text-sm py-4 flex flex-col gap- w-11/12 md:w-3/4 mx-auto leading-loose">
+<div className="about2"><h1 className="text-center text-3xl font-bold ">My Blog</h1>
+</div>  
+ <div ata-aos="fade-right"  className="about-text2 gap- mx-auto mb-8 flex w-11/12 flex-col py-4 text-center text-sm leading-loose dark:text-gray-300 md:w-3/4">
 <p>I have had various opportunities to build up experience overtime in the industry. Welcome to my blog. Here’s where I share my thoughts and experience.
 </p>
 <p>I document lessons on Tech, Crypto, Blockchain, Coding/Development, Productivity & Growth.
 </p>
-<Link href='/blog' className="flex justify-center items-center"> 
-<button className=' mx-auto mt-5 group bg-[#0145FE] dark:bg-[#0145FE] text-gray-100 dark:text-gray-100 px-4 py-2 rounded-md hover:bg-blue-700 dark:hover:bg-blue-700 flex items-center justify-center gap-4 transition-all duration-300 ease-in-out'>Visit Blog
+<Link href='/blog' className="flex items-center justify-center"> 
+<button className=' group mx-auto mt-5 flex items-center justify-center gap-4 rounded-md bg-[#0145FE] px-4 py-2 text-gray-100 transition-all duration-300 ease-in-out hover:bg-blue-700 dark:bg-[#0145FE] dark:text-gray-100 dark:hover:bg-blue-700'>Visit Blog
 </button>
 </Link>
     </div>

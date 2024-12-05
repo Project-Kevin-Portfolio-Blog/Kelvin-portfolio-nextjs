@@ -7,7 +7,7 @@ import NewsLetter from "@/components/portfolio/newsletters/page";
 import Footer from "@/components/footer/page";
 export default function Home() {
   return (
-    <main className=" min-h-screen pt-8 lg:pt-32 bg-slate-100   text-[#081825] dark:bg-[#081825] dark:text-gray-100">
+    <main className=" min-h-screen pt-8 lg:pt-32  dark:bg-[#081825] dark:text-gray-100">
    
     
     <HeroPage /> 

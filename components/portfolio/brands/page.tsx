@@ -8,8 +8,8 @@ import 'swiper/css/navigation';
 
 const Brands = () => {
   return (
-    <div className="md:w-full py-8 lg:py-16 w-11/12 mx-auto ">
-      <h1 className="lg:text-5xl text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white ">
+    <div className="brand md:w-full py-8 lg:py-16 w-11/12 mx-auto ">
+      <h1 className=" uppercase lg:text-4xl text-3xl  text-center mb-12 dark:text-white ">
       Brands I Have Work With
       </h1>
       <Swiper
