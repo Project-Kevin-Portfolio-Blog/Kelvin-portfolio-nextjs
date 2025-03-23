@@ -12,6 +12,7 @@ export async function POST(request: Request) {
 
     // Create a new post using the Mongoose model
     const newPost = await Post.create(postData);
+    console.log("created post", newPost);
 
     return NextResponse.json({
       success: true,
@@ -32,11 +33,24 @@ export async function GET(request: Request) {
     const type = searchParams.get("type");
     const page = parseInt(searchParams.get("page") || "1", 10);
     const category = searchParams.get("category");
+    const id = searchParams.get("id");
 
     // Ensure database connection
     await connectToDatabase();
 
-    // Build query
+    if (id) {
+      // Fetch a single post by ID
+      const post = await Post.findById(id);
+      if (!post) {
+        return NextResponse.json(
+          { success: false, message: "Post not found" },
+          { status: 404 }
+        );
+      }
+      return NextResponse.json({ post });
+    }
+
+    // Build query for multiple posts
     const query: any = {};
     if (type) query.type = type;
     if (category) query.category = category;
@@ -55,7 +69,7 @@ export async function GET(request: Request) {
     console.error(error);
     return NextResponse.json(
       { success: false, message: "Server error" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

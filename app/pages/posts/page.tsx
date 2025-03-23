@@ -121,7 +121,7 @@ export default function AllPosts() {
                     <td className="px-6 py-4">{post.title}</td>
                     <td className="px-6 py-4">{post.category}</td>
                     <td className="px-6 py-4">
-                      <Image
+                      <img
                         src={post.imageUrl}
                         alt={post.title}
                         width={100}

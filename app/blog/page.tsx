@@ -1,23 +1,43 @@
-'use client'
-import { useState, useEffect } from 'react';
-import { Tab } from '@headlessui/react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { PostCard } from '@/components/blog/PostCard';
-import { VideoCard } from '@/components/blog/VideoCard';
-import { Pagination } from '@/components/blog/Pagination';
+"use client";
+import { useState, useEffect } from "react";
+import { Tab } from "@headlessui/react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { PostCard } from "@/components/blog/PostCard";
+import { VideoCard } from "@/components/blog/VideoCard";
+import { Pagination } from "@/components/blog/Pagination";
+
+interface Post {
+  _id: string;
+  title: string;
+  content: string;
+  type: string;
+  thumbnail: string;
+  slug: string;
+  description: string;
+  category: string;
+  imageUrl: string;
+  externalUrl?: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [activeType, setActiveType] = useState('article');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [activeType, setActiveType] = useState("article");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const categories = [
-    'education', 'tech', 'blockchain', 'tutorials', 
-    'cryptocurrency', 'reviews', 'opportunities'
+    "education",
+    "tech",
+    "blockchain",
+    "tutorials",
+    "cryptocurrency",
+    "reviews",
+    "opportunities",
   ];
 
   useEffect(() => {
@@ -25,29 +45,38 @@ export default function BlogPage() {
   }, [activeType, selectedCategory, currentPage]);
 
   const fetchPosts = async () => {
-    const res = await fetch(
-      `/api/posts?type=${activeType}&page=${currentPage}&category=${selectedCategory}`
-    );
-    const data = await res.json();
-    setPosts(data.posts);
-    setTotalPages(data.totalPages);
+    try {
+      const res = await fetch(
+        `/api/posts?type=${activeType}&page=${currentPage}&category=${selectedCategory}`,
+      );
+      const data = await res.json();
+      console.log(data);
+
+      if (data?.posts) {
+        setPosts(data.posts);
+        setTotalPages(data.totalPages);
+      } else {
+        setPosts([]);
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Breadcrumb Navigation */}
       <Tab.Group>
-        <Tab.List className="flex space-x-4 border-b mb-8">
+        <Tab.List className="mb-8 flex space-x-4 border-b">
           <Tab
             className={({ selected }) =>
-              `px-4 py-2 ${selected ? 'border-b-2 border-blue-500' : ''}`
+              `px-4 py-2 ${selected ? "border-b-2 border-blue-500" : ""}`
             }
           >
             Articles
           </Tab>
           <Tab
             className={({ selected }) =>
-              `px-4 py-2 ${selected ? 'border-b-2 border-blue-500' : ''}`
+              `px-4 py-2 ${selected ? "border-b-2 border-blue-500" : ""}`
             }
           >
             Videos
@@ -56,16 +85,15 @@ export default function BlogPage() {
 
         <Tab.Panels>
           <Tab.Panel>
-            {/* Categories - Desktop */}
-            <div className="hidden md:flex flex-wrap gap-4 mb-8">
+            <div className="mb-8 hidden flex-wrap gap-4 md:flex">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full ${
+                  className={`rounded-full px-4 py-2 ${
                     selectedCategory === category
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-100'
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-100"
                   }`}
                 >
                   {category}
@@ -73,9 +101,8 @@ export default function BlogPage() {
               ))}
             </div>
 
-            {/* Categories - Mobile */}
             <select
-              className="md:hidden w-full mb-8 p-2 border rounded"
+              className="mb-8 w-full rounded border p-2 md:hidden"
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               <option value="">All Categories</option>
@@ -86,26 +113,31 @@ export default function BlogPage() {
               ))}
             </select>
 
-            {/* Posts Grid */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {posts && posts.map((post: any) => (
-                <PostCard key={post._id} post={post} />
-              ))}
+            <div className="grid gap-6 md:grid-cols-3">
+              {posts.length > 0 ? (
+                posts.map((post) => <PostCard key={post._id} post={post} />)
+              ) : (
+                <p className="col-span-3 text-center text-gray-500">
+                  No posts yet.
+                </p>
+              )}
             </div>
           </Tab.Panel>
 
           <Tab.Panel>
-            {/* Videos Grid */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {posts && posts.map((post: any) => (
-                <VideoCard key={post._id} post={post} />
-              ))}
+            <div className="grid gap-6 md:grid-cols-2">
+              {posts.length > 0 ? (
+                posts.map((post) => <VideoCard key={post._id} post={post} />)
+              ) : (
+                <p className="col-span-2 text-center text-gray-500">
+                  No videos found.
+                </p>
+              )}
             </div>
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
 
-      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
@@ -113,4 +145,4 @@ export default function BlogPage() {
       />
     </div>
   );
-} 
+}

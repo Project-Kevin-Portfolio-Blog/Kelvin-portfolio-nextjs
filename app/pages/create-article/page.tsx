@@ -6,17 +6,29 @@ import SideBar from "@/components/admin/Sidebar";
 
 export default function CreatePost() {
   const router = useRouter();
+
   const [formData, setFormData] = useState({
     title: "",
     type: "article",
+    slug: "",
     content: "",
-    category: "education",
+    category: "blockchain",
     imageUrl: "",
     externalUrl: "",
   });
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
+  const generateSlug = (title: string) =>
+    title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-");
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    setFormData({ ...formData, title, slug: generateSlug(title) });
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -56,9 +68,7 @@ export default function CreatePost() {
               type="text"
               placeholder="Title"
               value={formData.title}
-              onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
-              }
+              onChange={handleTitleChange}
               className="w-full rounded border p-2 capitalize dark:bg-[#081825]"
             />
 
@@ -80,9 +90,9 @@ export default function CreatePost() {
               }
               className="w-full rounded border p-2 dark:bg-[#081825]"
             >
+              <option value="blockchain">Blockchain</option>
               <option value="education">Education</option>
               <option value="tech">Tech</option>
-              <option value="blockchain">Blockchain</option>
               <option value="tutorials">Tutorials</option>
               <option value="cryptocurrency">Cryptocurrency</option>
               <option value="reviews">Reviews</option>

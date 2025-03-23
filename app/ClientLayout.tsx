@@ -3,7 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useState, useEffect } from 'react';
 import { ThemeModeScript } from "flowbite-react";
-import Navbar from '@/components/Navbar/Navbar'
+import Navbar from '@/components/Navbar/Navbar';
 import Loader from './Loader'
 
 export default function ClientLayout({

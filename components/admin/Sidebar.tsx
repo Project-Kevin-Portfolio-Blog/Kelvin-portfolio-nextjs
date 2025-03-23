@@ -3,24 +3,44 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { FaPlus, FaList, FaSignOutAlt, FaBars } from "react-icons/fa";
+import {
+  FaPlus,
+  FaList,
+  FaSignOutAlt,
+  FaBars,
+  FaCaretDown,
+} from "react-icons/fa";
 
-const NavLink = ({
-  href,
-  children,
-  className,
-}: {
+interface NavItem {
+  href: string;
+  label: string;
+  icon: JSX.Element;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { href: "/pages/create-article", label: "Create Article", icon: <FaPlus /> },
+  { href: "/pages/create-video", label: "Upload Video", icon: <FaPlus /> },
+  { href: "/pages/create-gallery", label: "Add Gallery", icon: <FaPlus /> },
+  { href: "/pages/posts", label: "All Posts", icon: <FaList /> },
+  { href: "/pages/videos", label: "All Videos", icon: <FaList /> },
+  { href: "/pages/gallery", label: "Gallery Photos", icon: <FaList /> },
+];
+
+interface NavLinkProps {
   href: string;
   children: React.ReactNode;
-  className?: string;
-}) => {
+}
+
+const NavLink = ({ href, children }: NavLinkProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
   return (
     <Link
       href={href}
-      className={`${className} ${isActive ? "bg-gray-900" : ""}`}
+      className={`flex items-center p-4 transition-colors hover:bg-gray-300 ${
+        isActive ? "bg-gray-400" : ""
+      }`}
     >
       {children}
     </Link>
@@ -30,104 +50,53 @@ const NavLink = ({
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleSidebar = () => setIsOpen((prev) => !prev);
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    // Use window.location for a full page reload to the login page
     window.location.href = "/login";
   };
 
   return (
-    <>
-      <div className=" min-h-screen z-50">
-        <button
-          className="fixed left-6   mt-16 rounded text-2xl  text-gray-950 md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <FaBars className="text-gray-500 " />
-        </button>
+    <div className="z-50 min-h-screen">
+      <button
+        className="fixed left-6 mt-16 text-2xl text-gray-950"
+        onClick={toggleSidebar}
+      >
+        <FaBars className="text-gray-500" />
+      </button>
 
-        <div
-          className={`
-          fixed left-0 top-0  mt-28 flex h-full  w-64
-          flex-col bg-gray-800 pt-16 text-white 
-          transition-transform duration-300 ease-in-out md:mt-28
-          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-        `}
-        >
-          <div className="border-b border-gray-700 px-4 pb-8 text-2xl font-bold">
-            Admin Dashboard
+      <div
+        className={`fixed left-0 top-0 mt-28 h-full w-64 flex-col bg-white pt-16 text-black transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 md:${isOpen ? "block" : "hidden"}`}
+      >
+        <div className="flex gap-2 border-b border-gray-300 px-4 pb-8 text-xl font-bold">
+          <div>Admin Dashboard</div>
+          <div onClick={toggleSidebar} title="close sidebar"> 
+            <FaCaretDown className="inline text-gray-500" />
           </div>
-          <nav className="flex-1">
-            <ul>
-              <li>
-                <NavLink
-                  href="/pages/create-article"
-                  className="flex cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
-                >
-                  <FaPlus className="mr-2 inline-block" />
-                  Create Article
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  href="/pages/create-video"
-                  className="flex cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
-                >
-                  <FaPlus className="mr-2 inline-block" />
-                  Upload Video
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  href="/pages/create-gallery"
-                  className="flex cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
-                >
-                  <FaPlus className="mr-2 inline-block" />
-                  Add Gallery
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  href="/pages/posts"
-                  className="flex cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
-                >
-                  <FaList className="mr-2 inline-block" />
-                  All Posts
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  href="/pages/videos"
-                  className="flex cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
-                >
-                  <FaList className="mr-2 inline-block" />
-                  All Videos
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  href="/pages/gallery"
-                  className="flex cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
-                >
-                  <FaList className="mr-2 inline-block" />
-                  Gallery Photos
-                </NavLink>
-              </li>
-              <li>
-                <button
-                  className="mt-auto flex w-full cursor-pointer items-center p-4 transition-colors hover:bg-gray-600"
-                  onClick={handleLogout}
-                >
-                  <FaSignOutAlt className="mr-2 inline-block" />
-                  Logout
-                </button>
-              </li>
-            </ul>
-          </nav>
         </div>
+        <nav className="flex-1">
+          <ul>
+            {NAV_ITEMS.map(({ href, label, icon }) => (
+              <li key={href}>
+                <NavLink href={href}>
+                  <span className="mr-2">{icon}</span>
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+            <li>
+              <button
+                className="mt-auto flex w-full items-center p-4 transition-colors hover:bg-gray-300"
+                onClick={handleLogout}
+              >
+                <FaSignOutAlt className="mr-2" /> Logout
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </>
+    </div>
   );
 }
